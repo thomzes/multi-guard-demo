@@ -51,6 +51,13 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Login failed!');
         }
 
+    } //end method
+
+    public function logout()
+    {
+        Auth::guard('web')->logout();
+
+        return redirect('/');
 
     } //end method
 

@@ -25,6 +25,33 @@
                     </div>
                 @endif
 
+                <table class="table table-responsive">
+
+                    <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+
+                            <td>{{ Auth::guard('web')->user()->name }}</td>
+                            <td>{{ Auth::guard('web')->user()->email }}</td>
+                            <td>
+                                <a href="{{ route('user.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                
+                                <form id="logout-form" action="{{ route('user.logout') }}" method="post">
+                                    @csrf
+                                </form>
+                            </td>
+    
+                        </tr>
+                        
+                    </tbody>
+
+                </table>
+
                 
 
             </div>

@@ -30,9 +30,10 @@ Route::prefix('user')->name('user.')->group(function() {
         Route::post('/create', [UserController::class, 'create'])->name('create');
         Route::post('/dologin', [UserController::class, 'doLogin'])->name('dologin');
     });
-
+    
     Route::middleware('auth')->group(function() {
         Route::view('/home', 'dashboard.user.home')->name('home');
+        Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     });
 
 
