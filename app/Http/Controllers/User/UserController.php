@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -32,6 +33,24 @@ class UserController extends Controller
         }else{
             return redirect()->back()->with('error', 'Registration failed!');
         }
+
+    } //end method
+
+    public function doLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6|max:15',
+        ]);
+
+        $check = $request->only('email', 'password');
+
+        if (Auth::guard('web')->attempt($check)) {
+            return redirect()->route('user.home')->with('success', 'Welcome to dashboard!');
+        }else{
+            return redirect()->back()->with('error', 'Login failed!');
+        }
+
 
     } //end method
 
