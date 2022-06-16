@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,19 @@ Route::prefix('user')->name('user.')->group(function() {
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     });
 
+});
+
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::middleware('guest:admin')->group(function() {
+        Route::view('/login', 'dashboard.admin.login')->name('login');
+        Route::post('/dologin', [AdminController::class, 'doLogin'])->name('dologin');
+    });
+    
+    Route::middleware('auth:admin')->group(function() {
+        Route::view('/home', 'dashboard.admin.home')->name('home');
+        Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+    });
 
 });
 
