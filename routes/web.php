@@ -24,14 +24,14 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('user')->name('user.')->group(function() {
-    Route::middleware('guest')->group(function() {
+    Route::middleware('guest:web')->group(function() {
         Route::view('/login', 'dashboard.user.login')->name('login');
         Route::view('/register', 'dashboard.user.register')->name('register');
         Route::post('/create', [UserController::class, 'create'])->name('create');
         Route::post('/dologin', [UserController::class, 'doLogin'])->name('dologin');
     });
     
-    Route::middleware('auth')->group(function() {
+    Route::middleware('auth:web')->group(function() {
         Route::view('/home', 'dashboard.user.home')->name('home');
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     });
